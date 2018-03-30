@@ -78,7 +78,7 @@ def append_result(value_list):
     # lines[-3] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT,\s', lines[-3]):
         print('error: output could not be found')
-        error_file = open(r'./error.txt', 'a')
+        error_file = open(r'./data/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
         error_file.close()
