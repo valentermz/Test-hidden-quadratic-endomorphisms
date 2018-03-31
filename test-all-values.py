@@ -103,6 +103,12 @@ def main():
     for each line in 'values.txt'
     """
 
+    # Clear all files each time this script is run
+    error_file = open(r'./data/error.txt', 'w')
+    data_file = open(r'./data/data.txt', 'w')
+    error_file.close()
+    data_file.close()
+
     input_file = open(r'./data/values.txt', 'r')
 
     for line in input_file:
