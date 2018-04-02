@@ -6,6 +6,8 @@ This repository deals with quadratic endomorphisms having an invariant line. In 
 
 The object of this repository is to test if a collection of numbers `[t_0, t_1, t_2, d_0, d_1, d_2, L]` satisfy the hidden relation.
 
+**Note:** To avoid working with rationals in python the value of L is stored as `[L.numerator, L.denominator]`.
+
 ## Main components:
 
 * The code to perform the test is contained in `m2-code/hidden-source.m2`.
