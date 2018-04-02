@@ -1,4 +1,4 @@
 # Ignore intermediary files produced by 'test-all-values.py'
 
-m2-code/hidden.m2
+m2-code/hidden-run.m2
 m2-code/output.m2
