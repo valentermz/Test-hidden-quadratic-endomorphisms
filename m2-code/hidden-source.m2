@@ -8,7 +8,7 @@ R = kk[c_0..c_5, T_0..T_2,D_0..D_2, a_0,a_1,b_0,b_1,X, L, MonomialOrder=>{6,6,6}
 --END VALUES
 --
 -- X = \sqrt{Disc}
-Disc = (-4)*(t_2^2*d_0*d_1-2*t_2*t_3*d_0*d_1+t_3^2*d_0*d_1+t_1^2*d_0*d_2-2*t_1*t_3*d_0*d_2+t_3^2*d_0*d_2+t_0^2*d_1*d_2-2*t_0*t_3*d_1*d_2+t_3^2*d_1*d_2+t_1^2*d_0*d_3-2*t_1*t_2*d_0*d_3+t_2^2*d_0*d_3+t_0^2*d_1*d_3-2*t_0*t_2*d_1*d_3+t_2^2*d_1*d_3+t_0^2*d_2*d_3-2*t_0*t_1*d_2*d_3+t_1^2*d_2*d_3)
+Disc = (-4)*(t_2^2*d_0*d_1-2*t_2*t_3*d_0*d_1+t_3^2*d_0*d_1+t_1^2*d_0*d_2-2*t_1*t_3*d_0*d_2+t_3^2*d_0*d_2+t_0^2*d_1*d_2-2*t_0*t_3*d_1*d_2+t_3^2*d_1*d_2+t_1^2*d_0*d_3-2*t_1*t_2*d_0*d_3+t_2^2*d_0*d_3+t_0^2*d_1*d_3-2*t_0*t_2*d_1*d_3+t_2^2*d_1*d_3+t_0^2*d_2*d_3-2*t_0*t_1*d_2*d_3+t_1^2*d_2*d_3);
 Z = ideal(X^2 - Disc);
 
 -- a = A_0 +- A_1*X, b = B_0 +- B_1*X
@@ -30,9 +30,9 @@ D_1 = d_1*(a+1)^2 % Z;
 D_2 = d_2*(b+1)^2 % Z;
 
 -- We recompute the hidden relation for vector fields:
-Eq_0 = T_0 - (-c_0-c_5) ;
-Eq_1 = T_1 - (c_0+c_4-c_5) ;
-Eq_2 = T_2 - (-c_0+c_1+c_5) ;
+Eq_0 = T_0 - (-c_0-c_5);
+Eq_1 = T_1 - (c_0+c_4-c_5);
+Eq_2 = T_2 - (-c_0+c_1+c_5);
 Eq_3 = D_0 - (-c_2*c_3+c_0*c_5) ;
 Eq_4 = D_1 - (-c_1*c_3+c_2*c_3+c_0*c_4-c_0*c_5) ;
 Eq_5 = D_2 - (c_2*c_3-c_2*c_4-c_0*c_5+c_1*c_5) ;
@@ -46,9 +46,8 @@ H = GB_(0,0);
 -- if H = u+Xv then h = (u+Xv)(u-Xv) = u^2-Disc*v^2
 u = sub(H, X=>0);
 v = sub(diff(X,H), X=>0);
-ideal(u^2 - (v^2)*Disc);
-mingens oo;
-h = oo_(0,0);
+g = gens ideal(u^2 - (v^2)*Disc);
+h = g_(0,0);
 
 --FINAL-RESULT--
 print("OUTPUT", toString factor h, sub(h, L=>Lambda) == 0)
