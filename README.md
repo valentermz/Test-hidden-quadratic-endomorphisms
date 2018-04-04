@@ -4,13 +4,19 @@ Consider a quadratic endomorphism *F* of the complex projective plane having iso
 
 This repository deals with quadratic endomorphisms having an invariant line. In this case there is one more *hidden relation*.
 
-The object of this repository is to test if a collection of numbers `[t_0, t_1, t_2, d_0, d_1, d_2, L]` satisfy the hidden relation.
+The object of this repository is to do the following:
+
+* compute the hidden relation from a list of values `[t_0, t_1, t_2, t_3, d_0, d_1, d_2, d_3]`,
+
+* test if a collection of numbers `[t_0, t_1, t_2, t_3, d_0, d_1, d_2, d_3, L]` satisfy such hidden relation.
 
 **Note:** To avoid working with rationals in python the value of L is stored as `[L.numerator, L.denominator]`.
 
 ## Main components:
 
-* The code to perform the test is contained in `m2-code/hidden-source.m2`.
+* The code to compute the hidden relation is contained in `m2-code/hidden-source.m2`.
+
+* A Jupyter notebook `compute-hidden-interactive.ipynb` that runs the same Macaulay2 code in a subprocess.
 
 * The file `data/values.txt` contains a list of values that need to be tested.
 
