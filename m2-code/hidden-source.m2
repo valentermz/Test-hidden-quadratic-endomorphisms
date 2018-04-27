@@ -1,33 +1,38 @@
+gbTrace = 2; 
 printWidth = 0;
 
-kk = QQ
-R = kk[c_0..c_5, T_0..T_2,D_0..D_2, a_0,a_1,b_0,b_1,X, L, MonomialOrder=>{6,6,6}];
+kk = QQ;
+R = kk[c_0..c_5, x,y, w_0..w_2, a,b, MonomialOrder => Eliminate 11];
 
 -- Define the values of the spectrum below:
---START VALUES
+--START VALUES [-4, -7, -7, -10, 3, 10, 10, -39, [260, 529]
+t_0 = -4;
+t_1 = -7;
+t_2 = -7;
+t_3 = -10;
+d_0 = 3;
+d_1 = 10;
+d_2 = 10;
+d_3 = -39;
+L = 260/529;
 --END VALUES
---
--- X = \sqrt{Disc}
-Disc = (-4)*(t_2^2*d_0*d_1-2*t_2*t_3*d_0*d_1+t_3^2*d_0*d_1+t_1^2*d_0*d_2-2*t_1*t_3*d_0*d_2+t_3^2*d_0*d_2+t_0^2*d_1*d_2-2*t_0*t_3*d_1*d_2+t_3^2*d_1*d_2+t_1^2*d_0*d_3-2*t_1*t_2*d_0*d_3+t_2^2*d_0*d_3+t_0^2*d_1*d_3-2*t_0*t_2*d_1*d_3+t_2^2*d_1*d_3+t_0^2*d_2*d_3-2*t_0*t_1*d_2*d_3+t_1^2*d_2*d_3);
-Z = ideal(X^2 - Disc);
 
--- a = A_0 +- A_1*X, b = B_0 +- B_1*X
-A_0 = (-t_2^2*d_0*d_1+2*t_2*t_3*d_0*d_1-t_3^2*d_0*d_1-t_0*t_1*d_0*d_2+t_0*t_3*d_0*d_2+t_1*t_3*d_0*d_2-t_3^2*d_0*d_2-t_0^2*d_1*d_2+2*t_0*t_3*d_1*d_2-t_3^2*d_1*d_2-t_0*t_1*d_0*d_3+t_0*t_2*d_0*d_3+t_1*t_2*d_0*d_3-t_2^2*d_0*d_3-t_0^2*d_1*d_3+2*t_0*t_2*d_1*d_3-t_2^2*d_1*d_3)/(t_2^2*d_0*d_1-2*t_2*t_3*d_0*d_1+t_3^2*d_0*d_1+t_0^2*d_1*d_2-2*t_0*t_3*d_1*d_2+t_3^2*d_1*d_2+t_0^2*d_1*d_3-2*t_0*t_2*d_1*d_3+t_2^2*d_1*d_3);
-A_1 = -(t_2*d_0-t_3*d_0)/(2*t_2^2*d_0*d_1-4*t_2*t_3*d_0*d_1+2*t_3^2*d_0*d_1+2*t_0^2*d_1*d_2-4*t_0*t_3*d_1*d_2+2*t_3^2*d_1*d_2+2*t_0^2*d_1*d_3-4*t_0*t_2*d_1*d_3+2*t_2^2*d_1*d_3);
-B_0 = (-t_0*t_2*d_0*d_1+t_0*t_3*d_0*d_1+t_2*t_3*d_0*d_1-t_3^2*d_0*d_1-t_1^2*d_0*d_2+2*t_1*t_3*d_0*d_2-t_3^2*d_0*d_2-t_0^2*d_1*d_2+2*t_0*t_3*d_1*d_2-t_3^2*d_1*d_2+t_0*t_1*d_0*d_3-t_1^2*d_0*d_3-t_0*t_2*d_0*d_3+t_1*t_2*d_0*d_3-t_0^2*d_2*d_3+2*t_0*t_1*d_2*d_3-t_1^2*d_2*d_3)/(t_1^2*d_0*d_2-2*t_1*t_3*d_0*d_2+t_3^2*d_0*d_2+t_0^2*d_1*d_2-2*t_0*t_3*d_1*d_2+t_3^2*d_1*d_2+t_0^2*d_2*d_3-2*t_0*t_1*d_2*d_3+t_1^2*d_2*d_3);
-B_1 = (t_1*d_0-t_3*d_0)/(2*t_1^2*d_0*d_2-4*t_1*t_3*d_0*d_2+2*t_3^2*d_0*d_2+2*t_0^2*d_1*d_2-4*t_0*t_3*d_1*d_2+2*t_3^2*d_1*d_2+2*t_0^2*d_2*d_3-4*t_0*t_1*d_2*d_3+2*t_1^2*d_2*d_3);
+-- Relations coming from Jacobi formula:
+Rel_0 = a^2*d_3*x^2 + 2*a*b*d_3*x*y + b^2*d_3*y^2 + a^2*d_1*x + 2*a*d_1*x + 2*a*d_3*x + 2*b*d_3*y + d_1*x + d_3;
+Rel_1 = a^2*d_3*x^2 + 2*a*b*d_3*x*y + b^2*d_3*y^2 + b^2*d_2*y + 2*a*d_3*x + 2*b*d_2*y + 2*b*d_3*y + d_2*y + d_3;
+Rel_2 = a^2*b*d_1*d_2*d_3*x + a*b^2*d_1*d_2*d_3*y + a^2*d_0*d_1*d_3*x + a*b*d_0*d_2*d_3*x + a^2*d_1*d_2*d_3*x + a*b*d_1*d_2*d_3*x + a*b*d_0*d_1*d_3*y + b^2*d_0*d_2*d_3*y + a*b*d_1*d_2*d_3*y + b^2*d_1*d_2*d_3*y + a*b*d_0*d_1*d_2 + a*b*d_1*d_2*d_3 + a*d_0*d_1*d_3*x + a*d_0*d_2*d_3*x + a*d_1*d_2*d_3*x + b*d_0*d_1*d_3*y + b*d_0*d_2*d_3*y + b*d_1*d_2*d_3*y + a*d_0*d_1*d_2 + b*d_0*d_1*d_2 + a*d_0*d_1*d_3 + b*d_0*d_2*d_3 + a*d_1*d_2*d_3 + b*d_1*d_2*d_3 + d_0*d_1*d_2 + d_0*d_1*d_3 + d_0*d_2*d_3 + d_1*d_2*d_3;
+Rel_3 = a^2*b*d_1*d_2*d_3*t_0*x + a*b^2*d_1*d_2*d_3*t_0*y + a^2*d_1*d_2*d_3*t_0*x + a*b*d_1*d_2*d_3*t_0*x + a*b*d_0*d_2*d_3*t_1*x + a^2*d_0*d_1*d_3*t_2*x + a*b*d_1*d_2*d_3*t_0*y + b^2*d_1*d_2*d_3*t_0*y + b^2*d_0*d_2*d_3*t_1*y + a*b*d_0*d_1*d_3*t_2*y + a*b*d_1*d_2*d_3*t_0 + a*b*d_0*d_1*d_2*t_3 + a*d_1*d_2*d_3*t_0*x + a*d_0*d_2*d_3*t_1*x + a*d_0*d_1*d_3*t_2*x + b*d_1*d_2*d_3*t_0*y + b*d_0*d_2*d_3*t_1*y + b*d_0*d_1*d_3*t_2*y + a*d_1*d_2*d_3*t_0 + b*d_1*d_2*d_3*t_0 + b*d_0*d_2*d_3*t_1 + a*d_0*d_1*d_3*t_2 + a*d_0*d_1*d_2*t_3 + b*d_0*d_1*d_2*t_3 + d_1*d_2*d_3*t_0 + d_0*d_2*d_3*t_1 + d_0*d_1*d_3*t_2 + d_0*d_1*d_2*t_3;
+Rel_4 = a^4*b^2*d_1*d_2*d_3*x^2 + 2*a^3*b^3*d_1*d_2*d_3*x*y + a^2*b^4*d_1*d_2*d_3*y^2 + 2*a^4*b*d_1*d_2*d_3*x^2 + 2*a^3*b^2*d_1*d_2*d_3*x^2 + 4*a^3*b^2*d_1*d_2*d_3*x*y + 4*a^2*b^3*d_1*d_2*d_3*x*y + 2*a^2*b^3*d_1*d_2*d_3*y^2 + 2*a*b^4*d_1*d_2*d_3*y^2 + 2*a^3*b^2*d_1*d_2*d_3*x + a^4*d_0*d_1*d_3*x^2 + a^2*b^2*d_0*d_2*d_3*x^2 + a^4*d_1*d_2*d_3*x^2 + 4*a^3*b*d_1*d_2*d_3*x^2 + a^2*b^2*d_1*d_2*d_3*x^2 + 2*a^2*b^3*d_1*d_2*d_3*y + 2*a^3*b*d_0*d_1*d_3*x*y + 2*a*b^3*d_0*d_2*d_3*x*y + 2*a^3*b*d_1*d_2*d_3*x*y + 8*a^2*b^2*d_1*d_2*d_3*x*y + 2*a*b^3*d_1*d_2*d_3*x*y + a^2*b^2*d_0*d_1*d_3*y^2 + b^4*d_0*d_2*d_3*y^2 + a^2*b^2*d_1*d_2*d_3*y^2 + 4*a*b^3*d_1*d_2*d_3*y^2 + b^4*d_1*d_2*d_3*y^2 + 4*a^3*b*d_1*d_2*d_3*x + 4*a^2*b^2*d_1*d_2*d_3*x + 2*a^3*d_0*d_1*d_3*x^2 + 2*a^2*b*d_0*d_2*d_3*x^2 + 2*a^3*d_1*d_2*d_3*x^2 + 2*a^2*b*d_1*d_2*d_3*x^2 + 4*a^2*b^2*d_1*d_2*d_3*y + 4*a*b^3*d_1*d_2*d_3*y + 4*a^2*b*d_0*d_1*d_3*x*y + 4*a*b^2*d_0*d_2*d_3*x*y + 4*a^2*b*d_1*d_2*d_3*x*y + 4*a*b^2*d_1*d_2*d_3*x*y + 2*a*b^2*d_0*d_1*d_3*y^2 + 2*b^3*d_0*d_2*d_3*y^2 + 2*a*b^2*d_1*d_2*d_3*y^2 + 2*b^3*d_1*d_2*d_3*y^2 + a^2*b^2*d_0*d_1*d_2 + a^2*b^2*d_1*d_2*d_3 + 2*a^3*d_0*d_1*d_3*x + 2*a*b^2*d_0*d_2*d_3*x + 2*a^3*d_1*d_2*d_3*x + 8*a^2*b*d_1*d_2*d_3*x + 2*a*b^2*d_1*d_2*d_3*x + a^2*d_0*d_1*d_3*x^2 + a^2*d_0*d_2*d_3*x^2 + a^2*d_1*d_2*d_3*x^2 + 2*a^2*b*d_0*d_1*d_3*y + 2*b^3*d_0*d_2*d_3*y + 2*a^2*b*d_1*d_2*d_3*y + 8*a*b^2*d_1*d_2*d_3*y + 2*b^3*d_1*d_2*d_3*y + 2*a*b*d_0*d_1*d_3*x*y + 2*a*b*d_0*d_2*d_3*x*y + 2*a*b*d_1*d_2*d_3*x*y + b^2*d_0*d_1*d_3*y^2 + b^2*d_0*d_2*d_3*y^2 + b^2*d_1*d_2*d_3*y^2 + 2*a^2*b*d_0*d_1*d_2 + 2*a*b^2*d_0*d_1*d_2 + 2*a^2*b*d_1*d_2*d_3 + 2*a*b^2*d_1*d_2*d_3 + 4*a^2*d_0*d_1*d_3*x + 4*a*b*d_0*d_2*d_3*x + 4*a^2*d_1*d_2*d_3*x + 4*a*b*d_1*d_2*d_3*x + 4*a*b*d_0*d_1*d_3*y + 4*b^2*d_0*d_2*d_3*y + 4*a*b*d_1*d_2*d_3*y + 4*b^2*d_1*d_2*d_3*y + a^2*d_0*d_1*d_2 + 4*a*b*d_0*d_1*d_2 + b^2*d_0*d_1*d_2 + a^2*d_0*d_1*d_3 + b^2*d_0*d_2*d_3 + a^2*d_1*d_2*d_3 + 4*a*b*d_1*d_2*d_3 + b^2*d_1*d_2*d_3 + 2*a*d_0*d_1*d_3*x + 2*a*d_0*d_2*d_3*x + 2*a*d_1*d_2*d_3*x + 2*b*d_0*d_1*d_3*y + 2*b*d_0*d_2*d_3*y + 2*b*d_1*d_2*d_3*y + 2*a*d_0*d_1*d_2 + 2*b*d_0*d_1*d_2 + 2*a*d_0*d_1*d_3 + 2*b*d_0*d_2*d_3 + 2*a*d_1*d_2*d_3 + 2*b*d_1*d_2*d_3 + d_0*d_1*d_2 + d_0*d_1*d_3 + d_0*d_2*d_3 + d_1*d_2*d_3;
 
--- A particular solution of (a,b) 
-a = A_0 + X*A_1;
-b = B_0 + X*B_1;
+Rels = {Rel_0, Rel_1, Rel_2, Rel_3, Rel_4};
 
--- This gives the following values
+-- This gives the following values for the vector field:
 T_0 = t_0;
 T_1 = t_1*(a+1);
 T_2 = t_2*(b+1);
 D_0 = d_0;
-D_1 = d_1*(a+1)^2 % Z;
-D_2 = d_2*(b+1)^2 % Z;
+D_1 = d_1*(a+1)^2;
+D_2 = d_2*(b+1)^2;
 
 -- We recompute the hidden relation for vector fields:
 Eq_0 = T_0 - (-c_0-c_5);
@@ -38,17 +43,29 @@ Eq_4 = D_1 - (-c_1*c_3+c_2*c_3+c_0*c_4-c_0*c_5) ;
 Eq_5 = D_2 - (c_2*c_3-c_2*c_4-c_0*c_5+c_1*c_5) ;
 Eq_6 = L*(-c_0^2*c_1^2 + 4*c_0^3*c_2 + 27*c_2^2*c_3^2 - 4*c_2*c_4^3 + 4*c_3*c_5^3 - (c_1^2 - 12*c_0*c_2)*c_4^2 - (c_0^2 + 12*c_1*c_3 - 2*c_0*c_4 + c_4^2)*c_5^2 - 2*(2*c_1^3 - 9*c_0*c_1*c_2)*c_3 + 2*(c_0*c_1^2 - 6*c_0^2*c_2 - 9*c_1*c_2*c_3)*c_4 + 2*(c_0^2*c_1 + c_1*c_4^2 + 3*(2*c_1^2 - 3*c_0*c_2)*c_3 - (2*c_0*c_1 - 9*c_2*c_3)*c_4)*c_5) - (c_2^2*c_3^2 - c_1*c_2*c_3*c_4 + c_0*c_2*c_4^2 + c_0^2*c_5^2 - (c_0*c_1*c_4 - (c_1^2 - 2*c_0*c_2)*c_3)*c_5);
 
-J = ideal(Eq_0,Eq_1,Eq_2,Eq_3,Eq_4,Eq_5,Eq_6) + Z;
-I = eliminate({c_0,c_1,c_2,c_3,c_4,c_5}, J);
-GB = gens I; --first generator is H, the second comes from Z
-H = GB_(0,0);
+Eqs = {Eq_0, Eq_1, Eq_2, Eq_3, Eq_4, Eq_5, Eq_6};
 
--- if H = u+Xv then h = (u+Xv)(u-Xv) = u^2-Disc*v^2
-u = sub(H, X=>0);
-v = sub(diff(X,H), X=>0);
-g = gens ideal(u^2 - (v^2)*Disc);
-h = g_(0,0);
+-- Some genericity assumptions: a,b and x+y-1 are non-zero
+gc = {(a+1)*w_0-1, (b+1)*w_1-1, (x+y-1)*w_2-1};
+
+-- First we analize the ideal of relations from Jacobi:
+J = ideal(Rels) + ideal(gc);
+GBJ = selectInSubring(1, gens gb(J));
+eJ = ideal(GBJ);
+gensJ = toString flatten entries GBJ;
+
+codimJ = codim eJ;
+codimJ
+
+-- We add the equations for vector fields and eliminate:
+I = eJ + ideal(Eqs) + ideal(gc);
+GBI = selectInSubring(1, gens gb(I));
+eI = ideal(GBI);
+gensI = toString flatten entries GBI;
+
+codimI = codim eI;
+codimI
 
 --FINAL-RESULT--
-print("OUTPUT", toString factor h, sub(h, L=>Lambda) == 0)
+print("OUTPUT", codimJ, codimI, gensJ, gensI)
 exit
