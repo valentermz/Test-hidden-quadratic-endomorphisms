@@ -80,26 +80,38 @@ def append_result(value_list):
 
     # lines[-3] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT,\s', lines[-3]):
-        print('error: output could not be found')
+        print('Error line {}: output could not be found'.format(count - 1))
         error_file = open(r'./data/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
         error_file.close()
-        print('Wrote to "error.txt"')
+        print('Wrote to "error.txt"\n')
 
     # Otherwise, the result is recorded as
     # '[t_0, ..., L, cdoim J, codim I, degree gens I]'
     else:
         result = re.findall('OUTPUT,\s(.+)\]', lines[-3])
 
-        # Append the output to output_file
-        data_file = open(r'./data/data.txt', 'a')
+        # Append the output to the respective file
+        passed_file = open(r'./data/results-admissible.txt', 'a')
+        failed_file = open(r'./data/results-non-admissible.txt', 'a')
         output = str(value_list + [result[0]])
-        data_file.write('line : ' + str(count) + ' '
-                        + re.sub("\'", '', output)
-                        + '\n')  # remove the ' symbols
-        data_file.close()
-        print('Result appended to "data.txt"')
+
+        if re.search('infinity', output):
+            failed_file.write('line : ' + str(count) + ' '
+                              + re.sub("\'", '', output)
+                              + '\n')  # remove the ' symbols
+            failed_file.close()
+            print('Line {}: Test failed'.format(count - 1))
+            print('Result appended to "results-non-admissible.txt"\n')
+
+        else:
+            passed_file.write('line : ' + str(count) + ' '
+                              + re.sub("\'", '', output)
+                              + '\n')  # remove the ' symbols
+            passed_file.close()
+            print('Line {}: Test passed'.format(count - 1))
+            print('Result appended to "results-admissible.txt"\n')
 
 
 def main():
@@ -108,10 +120,12 @@ def main():
     """
 
     # Clear all files each time this script is run
+    passed_file = open(r'./data/results-admissible.txt', 'w')
+    failed_file = open(r'./data/results-non-admissible.txt', 'w')
     error_file = open(r'./data/error.txt', 'w')
-    data_file = open(r'./data/data.txt', 'w')
+    passed_file.close()
+    failed_file.close()
     error_file.close()
-    data_file.close()
 
     input_file = open(r'./data/values.txt', 'r')
     # For testing purposes we use:
@@ -128,7 +142,6 @@ def main():
 
     input_file.close()
 
-    print()
     print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count - 1))
 
 
