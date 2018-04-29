@@ -12,7 +12,7 @@ The object of this repository is to do the following:
 
 * It is not necessary to compute the *hidden relation* in order to perform the test.
 
-* To avoid working with rationals in python the value of *L* is stored as `[L.numerator, L.denominator]`.
+* To avoid working with rationals in python the value of `L` is stored as `[L.numerator, L.denominator]`.
 
 
 ## Main components:
@@ -45,17 +45,17 @@ where
 
 * `J` is the ideal obtained from the 5 Jacobi relations after eliminating `x_3, y_3`,
 
-* `I` is the ideal obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables *c_j*.
+* `I` is the ideal obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables `c_j`.
 
 The codimensions are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = 2`, `codim I = 2` (ie the solutions are finite) and `degree gens I = [1, 2]` (ie there are two solutions).
 
 Note that the spectra is non-admissible if and only if the ideal `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`.
 
 
-### Additional material:
+## Additional material:
 
 * The values in `values.txt` were extracted from `raw-input.txt` using `extract-values.py`.
 
 * The script `test-old-relations.py` verifies that these values satisfy the previously known *classical* relations.
 
-* The branch `via-h-algorithm` tries to perform the test by computing the *hidden relation* and evaluating it at *L*.
+* The branch `via-h-algorithm` tries to perform the test by computing the *hidden relation* and evaluating it at `L`.
