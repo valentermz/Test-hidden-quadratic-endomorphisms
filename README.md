@@ -47,9 +47,9 @@ where
 
 * `I` is the ideal obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables `c_j`.
 
-The codimensions are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = 2`, `codim I = 2` (ie the solutions are finite) and `degree gens I = [1, 2]` (ie there are two solutions).
+The codimensions are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = 2`, `codim I = 2` (ie the solutions are finite) and `degree gens I = [1, 2]` (ie there are two solutions given by the intersection of a line and a conic).
 
-Note that the spectra is non-admissible if and only if the ideal `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`.
+Note that the spectra is non-admissible if and only if the system of equations doesn't have a solution. This is equivalent to `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`.
 
 
 ## Additional material:
