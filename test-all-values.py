@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
-""" For each line in 'values.txt' execute the M2 script to test if
-    the proposed values satisfy the hidden relation.
-    If the polynomial h can be computed, test wether or not it vanishes
-    on the given value of L. Write the result to 'data.txt'.
-    If h cannot be computed, write to 'error.txt'.
+"""
+For each line in 'values.txt' execute the M2 script to compute a Gröbner basis
+of the ideal relations where all variables except (a,b) are eliminated.
+If the ideal is (1) then there are no solutions to the system and the list
+is not realizable as the spectra of an endomorphism.
+
+Write the result to 'data.txt'.
+The format is '[t_0, ..., L, cdoim J, codim I, degree gens I]'
 """
 
 import sys
@@ -25,18 +28,18 @@ def update_script(value_list):
     ls = value_list
     script = open(r'./m2-code/hidden-source.m2', 'r')
     text = script.read()
-    new_text = re.sub('VALUES\n--END',
-                      'VALUES\n'
-                      + 't_0=' + str(ls[0]) + '\n'
-                      + 't_1=' + str(ls[1]) + '\n'
-                      + 't_2=' + str(ls[2]) + '\n'
-                      + 't_3=' + str(ls[3]) + '\n'
-                      + 'd_0=' + str(ls[4]) + '\n'
-                      + 'd_1=' + str(ls[5]) + '\n'
-                      + 'd_2=' + str(ls[6]) + '\n'
-                      + 'd_3=' + str(ls[7]) + '\n'
-                      + 'Lambda=' + str(ls[8][0]) + '/' + str(ls[8][1])
-                      + '\n--END', text)
+    new_text = re.sub('START VALUES\n--END VALUES',
+                      'START VALUES\n'
+                      + 't_0 = ' + str(ls[0]) + '\n'
+                      + 't_1 = ' + str(ls[1]) + '\n'
+                      + 't_2 = ' + str(ls[2]) + '\n'
+                      + 't_3 = ' + str(ls[3]) + '\n'
+                      + 'd_0 = ' + str(ls[4]) + '\n'
+                      + 'd_1 = ' + str(ls[5]) + '\n'
+                      + 'd_2 = ' + str(ls[6]) + '\n'
+                      + 'd_3 = ' + str(ls[7]) + '\n'
+                      + 'L = ' + str(ls[8][0]) + '/' + str(ls[8][1])
+                      + '\n--END VALUES', text)
 
     updated_script = open(r'./m2-code/hidden-run.m2', 'w')
     updated_script.write(new_text)
@@ -64,7 +67,7 @@ def run_script():
 
 def append_result(value_list):
     """Record the final result to data.txt
-    The format will be: (t_0, ..., d_3, Lambda, h, test)
+    The format will be: (t_0, ..., d_3, L, h, codimJ, codimI, gensJ, gensI)
     """
     try:
         output_file = open(r'./m2-code/output.m2', 'r')
@@ -82,20 +85,21 @@ def append_result(value_list):
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
         error_file.close()
-        print('Wrote to "error.txt"' + '\n')
+        print('Wrote to "error.txt"')
 
-    # Otherwise, the result is saved as 'leadTerm, monicPolynomial'
+    # Otherwise, the result is recorded as
+    # '[t_0, ..., L, cdoim J, codim I, degree gens I]'
     else:
-        result = re.findall('OUTPUT,\s(.+)\)', lines[-3])
+        result = re.findall('OUTPUT,\s(.+)\]', lines[-3])
 
-        # Append the line '(t_0,...,d_3,Lambda,h,test)' to data.txt
+        # Append the output to output_file
         data_file = open(r'./data/data.txt', 'a')
         output = str(value_list + [result[0]])
         data_file.write('line : ' + str(count) + ' '
                         + re.sub("\'", '', output)
                         + '\n')  # remove the ' symbols
         data_file.close()
-        print('Result appended to "data.txt"\n')
+        print('Result appended to "data.txt"')
 
 
 def main():
@@ -110,6 +114,8 @@ def main():
     data_file.close()
 
     input_file = open(r'./data/values.txt', 'r')
+    # For testing purposes we use:
+    # input_file = open(r'./data/short-version-values.txt', 'r')
 
     for line in input_file:
 
@@ -122,6 +128,7 @@ def main():
 
     input_file.close()
 
+    print()
     print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count - 1))
 
 

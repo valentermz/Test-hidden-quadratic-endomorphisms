@@ -5,16 +5,7 @@ kk = QQ;
 R = kk[c_0..c_5, x,y, w_0..w_2, a,b, MonomialOrder => Eliminate 11];
 
 -- Define the values of the spectrum below:
---START VALUES [-4, -7, -7, -10, 3, 10, 10, -39, [260, 529]
-t_0 = -4;
-t_1 = -7;
-t_2 = -7;
-t_3 = -10;
-d_0 = 3;
-d_1 = 10;
-d_2 = 10;
-d_3 = -39;
-L = 260/529;
+--START VALUES
 --END VALUES
 
 -- Relations coming from Jacobi formula:
@@ -52,20 +43,21 @@ gc = {(a+1)*w_0-1, (b+1)*w_1-1, (x+y-1)*w_2-1};
 J = ideal(Rels) + ideal(gc);
 GBJ = selectInSubring(1, gens gb(J));
 eJ = ideal(GBJ);
-gensJ = toString flatten entries GBJ;
 
+gensJ = new Array from flatten entries GBJ;
 codimJ = codim eJ;
-codimJ
+degsJ = new Array from apply(gensJ, f -> first degree(f));
 
 -- We add the equations for vector fields and eliminate:
 I = eJ + ideal(Eqs) + ideal(gc);
 GBI = selectInSubring(1, gens gb(I));
 eI = ideal(GBI);
-gensI = toString flatten entries GBI;
 
+gensI = new Array from flatten entries GBI;
 codimI = codim eI;
-codimI
+degsI = new Array from apply(gensI, f -> first degree(f));
 
 --FINAL-RESULT--
-print("OUTPUT", codimJ, codimI, gensJ, gensI)
+output = new Array from {"OUTPUT", codimJ, codimI, degsI}
+print toString output
 exit
