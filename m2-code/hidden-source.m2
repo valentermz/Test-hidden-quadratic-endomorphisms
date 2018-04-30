@@ -49,7 +49,7 @@ codimJ = codim eJ;
 degsJ = new Array from apply(gensJ, f -> first degree(f));
 
 -- We add the equations for vector fields and eliminate:
-I = eJ + ideal(Eqs) + ideal(gc);
+I = ideal(Rels) + ideal(Eqs) + ideal(gc);
 GBI = selectInSubring(1, gens gb(I));
 eI = ideal(GBI);
 
