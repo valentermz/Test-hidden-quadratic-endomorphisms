@@ -39,7 +39,7 @@ Depending whether or not a collection passes the test it is recorded in one of t
 
 The output is stored in the following format.
 
-`Spectra : [codim J, degree gens J] : [codim I, degree gens I], [codim K, degree gens K]`,
+`Line number, Spectra, [codim J, degree gens J], [codim I, degree gens I], [codim K, degree gens K]`
 
 where 
 
