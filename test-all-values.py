@@ -78,7 +78,7 @@ def append_result(value_list):
         print('aborted after ' + str(count) + ' loops')
         sys.exit(3)
 
-    # lines[-3] must start with the word OUTPUT, if not something went wrong
+    # lines[-12] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT', lines[-12]):
         print('Error line {}: output could not be found'.format(count - 1))
         error_file = open(r'./data/error.txt', 'a')
@@ -95,26 +95,28 @@ def append_result(value_list):
         resultK = lines[-3].strip('\n')
 
         # Append the output to the respective file
-        passed_file = open(r'./data/results-admissible.txt', 'a')
-        failed_file = open(r'./data/results-non-admissible.txt', 'a')
-        output = str(value_list) + ' : ' \
-            + resultJ + ' : ' + resultI + ' : ' + resultK
+        passed_file = open(r'./data/results-admissible.csv', 'a')
+        failed_file = open(r'./data/results-non-admissible.csv', 'a')
+        output = '\"' + str(value_list) + '\"; ' \
+            + '\"' + resultJ + '\"; ' \
+            + '\"' + resultI + '\"; ' \
+            + '\"' + resultK + '\"'
 
         if re.search('infinity', output):
-            failed_file.write('line ' + str(count) + ' : '
+            failed_file.write('line ' + str(count) + ' ; '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             failed_file.close()
             print('Line {}: Test failed'.format(count - 1))
-            print('Result appended to "results-non-admissible.txt"\n')
+            print('Result appended to "results-non-admissible.csv"\n')
 
         else:
-            passed_file.write('line ' + str(count) + ' : '
+            passed_file.write('\"line ' + str(count) + '\"; '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             passed_file.close()
             print('Line {}: Test passed'.format(count - 1))
-            print('Result appended to "results-admissible.txt"\n')
+            print('Result appended to "results-admissible.csv"\n')
 
 
 def main():
@@ -123,9 +125,13 @@ def main():
     """
 
     # Clear all files each time this script is run
-    passed_file = open(r'./data/results-admissible.txt', 'w')
-    failed_file = open(r'./data/results-non-admissible.txt', 'w')
+    passed_file = open(r'./data/results-admissible.csv', 'w')
+    failed_file = open(r'./data/results-non-admissible.csv', 'w')
     error_file = open(r'./data/error.txt', 'w')
+
+    passed_file.write('"LINE"; "SPECTRA"; "IDEAL J"; "IDEAL I"; "IDEAL K"\n')
+    failed_file.write('"LINE"; "SPECTRA"; "IDEAL J"; "IDEAL I"; "IDEAL K"\n')
+
     passed_file.close()
     failed_file.close()
     error_file.close()
