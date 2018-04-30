@@ -79,7 +79,7 @@ def append_result(value_list):
         sys.exit(3)
 
     # lines[-3] must start with the word OUTPUT, if not something went wrong
-    if not re.search('OUTPUT,\s', lines[-3]):
+    if not re.search('OUTPUT', lines[-12]):
         print('Error line {}: output could not be found'.format(count - 1))
         error_file = open(r'./data/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
@@ -90,15 +90,18 @@ def append_result(value_list):
     # Otherwise, the result is recorded as
     # '[t_0, ..., L, cdoim J, codim I, degree gens I]'
     else:
-        result = re.findall('OUTPUT,\s(.+)\]', lines[-3])
+        resultJ = lines[-9].strip('\n')
+        resultI = lines[-6].strip('\n')
+        resultK = lines[-3].strip('\n')
 
         # Append the output to the respective file
         passed_file = open(r'./data/results-admissible.txt', 'a')
         failed_file = open(r'./data/results-non-admissible.txt', 'a')
-        output = str(value_list + [result[0]])
+        output = str(value_list) + ' : ' \
+            + resultJ + ' : ' + resultI + ' : ' + resultK
 
         if re.search('infinity', output):
-            failed_file.write('line : ' + str(count) + ' '
+            failed_file.write('line ' + str(count) + ' : '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             failed_file.close()
@@ -106,7 +109,7 @@ def append_result(value_list):
             print('Result appended to "results-non-admissible.txt"\n')
 
         else:
-            passed_file.write('line : ' + str(count) + ' '
+            passed_file.write('line ' + str(count) + ' : '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             passed_file.close()

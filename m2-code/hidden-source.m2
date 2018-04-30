@@ -57,7 +57,18 @@ gensI = new Array from flatten entries GBI;
 codimI = codim eI;
 degsI = new Array from apply(gensI, f -> first degree(f));
 
+K = eliminate({a,b,w_0,w_1,w_2}, I);
+gensK = new Array from flatten entries gens K;
+codimK = codim K;
+degsK = new Array from apply(gensK, f -> first degree(f));
+
 --FINAL-RESULT--
-output = new Array from {"OUTPUT", codimJ, codimI, degsI}
-print toString output
+outputJ = new Array from {codimJ, degsJ};
+outputI = new Array from {codimI, degsI};
+outputK = new Array from {codimK, degsK};
+
+print toString "OUTPUT" 
+print toString outputJ 
+print toString outputI
+print toString outputK
 exit
