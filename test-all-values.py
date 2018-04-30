@@ -97,13 +97,13 @@ def append_result(value_list):
         # Append the output to the respective file
         passed_file = open(r'./data/results-admissible.csv', 'a')
         failed_file = open(r'./data/results-non-admissible.csv', 'a')
-        output = '\"' + str(value_list) + '\"; ' \
-            + '\"' + resultJ + '\"; ' \
-            + '\"' + resultI + '\"; ' \
+        output = '\"' + str(value_list) + '\", ' \
+            + '\"' + resultJ + '\", ' \
+            + '\"' + resultI + '\", ' \
             + '\"' + resultK + '\"'
 
         if re.search('infinity', output):
-            failed_file.write('line ' + str(count) + ' ; '
+            failed_file.write('\"line ' + str(count) + '\", '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             failed_file.close()
@@ -111,7 +111,7 @@ def append_result(value_list):
             print('Result appended to "results-non-admissible.csv"\n')
 
         else:
-            passed_file.write('\"line ' + str(count) + '\"; '
+            passed_file.write('\"line ' + str(count) + '\", '
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             passed_file.close()
@@ -129,8 +129,8 @@ def main():
     failed_file = open(r'./data/results-non-admissible.csv', 'w')
     error_file = open(r'./data/error.txt', 'w')
 
-    passed_file.write('"LINE"; "SPECTRA"; "IDEAL J"; "IDEAL I"; "IDEAL K"\n')
-    failed_file.write('"LINE"; "SPECTRA"; "IDEAL J"; "IDEAL I"; "IDEAL K"\n')
+    passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I", "IDEAL K"\n')
+    failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I", "IDEAL K"\n')
 
     passed_file.close()
     failed_file.close()
