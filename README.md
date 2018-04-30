@@ -28,7 +28,7 @@ The object of this repository is to do the following:
 
 ## Results:
 
-Depending wether or not a collection passes the test it is recorded in one of the following files in `data/`:
+Depending whether or not a collection passes the test it is recorded in one of the following files in `data/`:
 
 * `results-admissible.txt`
 
@@ -39,17 +39,21 @@ Depending wether or not a collection passes the test it is recorded in one of th
 
 The output is stored in the following format.
 
-`[t_0, ..., d_3, [L.numerator, L.denominator], codim J, codim I, degree gens I]`,
+`Spectra : [codim J, degree gens J] : [codim I, degree gens I], [codim K, degree gens K]`,
 
 where 
 
-* `J` is the ideal obtained from the 5 Jacobi relations after eliminating `x_3, y_3`,
+* `J` is the ideal obtained from the 5 Jacobi relations after eliminating `x_3, y_3`. This ideal contains the information of whether the finite spectra `[t_0,...,d_3]` is admisible or not.
 
-* `I` is the ideal obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables `c_j`.
+* `I` is the ideal obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables `c_j`. This ideal contains the information of whether the whole spectra `[t_0,...,d_3, L]` is admisible or not.
 
-The codimensions are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = 2`, `codim I = 2` (ie the solutions are finite) and `degree gens I = [1, 2]` (ie there are two solutions given by the intersection of a line and a conic).
+* `K` is obtained from the ideal of all relations, but this time we eliminate all variables *except* the `c_j`. This ideal contains the information of whether or not the spectra `[t_0,...,d_3, L]` is actually realizable.
 
-Note that the spectra is non-admissible if and only if the system of equations doesn't have a solution. This is equivalent to `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`.
+The codimensions of `J` and `I` are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = codim I = 2` (ie the solutions are finite) and `degree gens J = degree gens I = [1, 2]` (ie there are two solutions given by the intersection of a line and a conic).
+
+The codimension of `K` is with respect to `QQ[c_0,...,c_5]`. A generic tuple should return `codim K = 6` and `degree gens K = [1, 1, 1, 1, 1, 2]`. This implies that there are exactly two solutions for the `c_j` (ie a pair of twin vector fields).
+
+Note that the spectra is non-admissible if and only if the system of equations doesn't have a solution. This is equivalent to `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`. Similarly, a system is non-realizable if and only if `codim K = 'infinity'`.
 
 
 ## Additional material:
