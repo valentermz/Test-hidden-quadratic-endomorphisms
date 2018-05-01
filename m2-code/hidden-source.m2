@@ -57,7 +57,7 @@ gensI = new Array from flatten entries GBI;
 codimI = codim eI;
 degsI = new Array from apply(gensI, f -> first degree(f));
 
-K = eliminate({a,b,w_0,w_1,w_2}, I);
+K = eliminate({x,y,w_0,w_1,w_2}, I);
 gensK = new Array from flatten entries gens K;
 codimK = codim K;
 degsK = new Array from apply(gensK, f -> first degree(f));

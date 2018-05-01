@@ -80,7 +80,7 @@ def append_result(value_list):
 
     # lines[-12] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT', lines[-12]):
-        print('Error line {}: output could not be found'.format(count - 1))
+        print('Error line {}: output could not be found'.format(count))
         error_file = open(r'./data/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
@@ -107,7 +107,7 @@ def append_result(value_list):
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             failed_file.close()
-            print('Line {}: Test failed'.format(count - 1))
+            print('Line {}: Test failed'.format(count))
             print('Result appended to "results-non-admissible.csv"\n')
 
         else:
@@ -115,7 +115,7 @@ def append_result(value_list):
                               + re.sub("\'", '', output)
                               + '\n')  # remove the ' symbols
             passed_file.close()
-            print('Line {}: Test passed'.format(count - 1))
+            print('Line {}: Test passed'.format(count))
             print('Result appended to "results-admissible.csv"\n')
 
 
@@ -151,7 +151,7 @@ def main():
 
     input_file.close()
 
-    print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count - 1))
+    print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count))
 
 
 if __name__ == "__main__":
