@@ -30,9 +30,9 @@ The object of this repository is to do the following:
 
 Depending whether or not a collection passes the test it is recorded in one of the following files in `data/`:
 
-* `results-admissible.txt`
+* `results-admissible.csv`
 
-* `results-non-admissible.txt`
+* `results-non-admissible.csv`
 
 
 ### Output format:
