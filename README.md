@@ -30,16 +30,16 @@ The object of this repository is to do the following:
 
 Depending whether or not a collection passes the test it is recorded in one of the following files in `data/`:
 
-* `results-admissible.txt`
+* `results-admissible.csv`
 
-* `results-non-admissible.txt`
+* `results-non-admissible.csv`
 
 
 ### Output format:
 
 The output is stored in the following format.
 
-`Spectra : [codim J, degree gens J] : [codim I, degree gens I], [codim K, degree gens K]`,
+`Line number, Spectra, [codim J, degree gens J], [codim I, degree gens I], [codim K, degree gens K]`
 
 where 
 
