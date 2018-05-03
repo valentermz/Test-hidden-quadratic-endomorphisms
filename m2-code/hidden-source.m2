@@ -72,5 +72,3 @@ print toString outputJ
 print toString outputI
 print toString outputK
 exit
-
--*- mode: M2;-*-
