@@ -98,7 +98,7 @@ def main():
     # Reset output file
     output_file = open(r'./test-old-relations-output.csv', 'w')
     output_file.write(
-        'Lefschetz1, Lefschetz2, Baum-Bott, Tangential Lefschetz, Camacho-Sad\n')
+        'Lefschetz1, Lefschetz2, Baum-Bott, 1-dim Lefschetz, Camacho-Sad\n')
     output_file.close()
 
     output_file = open(r'./test-old-relations-output.csv', 'a')
@@ -119,9 +119,11 @@ def main():
             m = eval(line)[1]
 
             # Perform the test
-            result = str(test_L1(l, m)) + ', ' + str(
-                test_L2(l, m)) + ', ' + str(test_BB(l, m)) + ', ' + str(
-                    test_TL(l, m)) + ', ' + str(test_CS(l, m)) + '\n'
+            result = str(test_L1(l, m)) + ', ' \
+                + str(test_L2(l, m)) + ', ' \
+                + str(test_BB(l, m)) + ', ' \
+                + str(test_TL(l, m)) + ', ' \
+                + str(test_CS(l, m)) + '\n'
 
             # Append to output_file
             output_file.write(result)
