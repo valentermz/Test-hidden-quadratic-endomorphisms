@@ -7,7 +7,9 @@ If the ideal is (1) then there are no solutions to the system and the list
 is not realizable as the spectra of an endomorphism.
 
 Write the result to 'data.txt'.
-The format is '[t_0, ..., L, cdoim J, codim I, degree gens I]'
+
+The format is:
+'[t_0, ..., d_3, L, [cdoim J, degree gens J], [codim I, degree gens I]]'
 """
 
 import sys
@@ -66,9 +68,8 @@ def run_script():
 
 
 def append_result(value_list):
-    """Record the final result to data.txt
-    The format will be: (t_0, ..., d_3, L, h, codimJ, codimI, gensJ, gensI)
-    """
+    """Record the final result to data.txt"""
+
     try:
         output_file = open(r'./m2-code/output.m2', 'r')
         lines = output_file.readlines()
@@ -79,7 +80,7 @@ def append_result(value_list):
         sys.exit(3)
 
     # lines[-12] must start with the word OUTPUT, if not something went wrong
-    if not re.search('OUTPUT', lines[-12]):
+    if not re.search('OUTPUT', lines[-9]):
         print('Error line {}: output could not be found'.format(count))
         error_file = open(r'./data/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
@@ -90,30 +91,28 @@ def append_result(value_list):
     # Otherwise, the result is recorded as
     # '[t_0, ..., L, cdoim J, codim I, degree gens I]'
     else:
-        resultJ = lines[-9].strip('\n')
-        resultI = lines[-6].strip('\n')
-        resultK = lines[-3].strip('\n')
+        resultJ = lines[-6].strip('\n')
+        resultI = lines[-3].strip('\n')
 
         # Append the output to the respective file
         passed_file = open(r'./data/results-admissible.csv', 'a')
         failed_file = open(r'./data/results-non-admissible.csv', 'a')
         output = '\"' + str(value_list) + '\", ' \
             + '\"' + resultJ + '\", ' \
-            + '\"' + resultI + '\", ' \
-            + '\"' + resultK + '\"'
+            + '\"' + resultI + '\"'
 
         if re.search('infinity', output):
             failed_file.write('\"line ' + str(count) + '\", '
-                              + re.sub("\'", '', output)
-                              + '\n')  # remove the ' symbols
+                              + re.sub("\'", '', output)  # remove the '
+                              + '\n')
             failed_file.close()
             print('Line {}: Test failed'.format(count))
             print('Result appended to "results-non-admissible.csv"\n')
 
         else:
             passed_file.write('\"line ' + str(count) + '\", '
-                              + re.sub("\'", '', output)
-                              + '\n')  # remove the ' symbols
+                              + re.sub("\'", '', output)  # remove the '
+                              + '\n')
             passed_file.close()
             print('Line {}: Test passed'.format(count))
             print('Result appended to "results-admissible.csv"\n')
@@ -129,8 +128,8 @@ def main():
     failed_file = open(r'./data/results-non-admissible.csv', 'w')
     error_file = open(r'./data/error.txt', 'w')
 
-    passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I", "IDEAL K"\n')
-    failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I", "IDEAL K"\n')
+    passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
+    failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I""\n')
 
     passed_file.close()
     failed_file.close()

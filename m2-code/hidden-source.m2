@@ -42,33 +42,26 @@ gc = {(a+1)*w_0-1, (b+1)*w_1-1, (x+y-1)*w_2-1};
 -- First we analize the ideal of relations from Jacobi:
 J = ideal(Rels) + ideal(gc);
 GBJ = selectInSubring(1, gens gb(J));
-eJ = ideal(GBJ);
+elimJ = ideal(GBJ);
 
 gensJ = new Array from flatten entries GBJ;
-codimJ = codim eJ;
+codimJ = codim elimJ;
 degsJ = new Array from apply(gensJ, f -> first degree(f));
 
 -- We add the equations for vector fields and eliminate:
 I = ideal(Rels) + ideal(Eqs) + ideal(gc);
 GBI = selectInSubring(1, gens gb(I));
-eI = ideal(GBI);
+elimI = ideal(GBI);
 
 gensI = new Array from flatten entries GBI;
-codimI = codim eI;
+codimI = codim elimI;
 degsI = new Array from apply(gensI, f -> first degree(f));
-
-K = eliminate({x,y,w_0,w_1,w_2}, I);
-gensK = new Array from flatten entries gens K;
-codimK = codim K;
-degsK = new Array from apply(gensK, f -> first degree(f));
 
 --FINAL-RESULT--
 outputJ = new Array from {codimJ, degsJ};
 outputI = new Array from {codimI, degsI};
-outputK = new Array from {codimK, degsK};
 
 print toString "OUTPUT" 
 print toString outputJ 
 print toString outputI
-print toString outputK
 exit
