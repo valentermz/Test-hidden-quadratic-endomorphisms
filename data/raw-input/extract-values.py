@@ -12,7 +12,7 @@ import re
 output_file = open(r'./values.txt', 'a')
 
 # Save the input as single string
-filename = r'./raw-input.csv'
+filename = r'./raw-input.txt'
 f = open(filename, 'r')
 text = f.read()
 

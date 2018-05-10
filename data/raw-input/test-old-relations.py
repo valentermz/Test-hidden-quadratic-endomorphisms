@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-"""Adolfo's files has 'special lines' which contain two 7-element
-lists of eigenvalues. This script scans through his file and tests if
-these lists satisfy the five previously known relations
+"""This script scans through 'raw-input.csv' and tests if
+these lists satisfy the five previously known relations.
 """
 
 import re
@@ -17,7 +16,10 @@ def test_L1(list1, list2):
     """
     Sum = sum(Fraction(1, list1[k] * list2[k]) for k in range(7))
     if Sum.denominator == 1:
-        return Sum.numerator
+        if Sum.numerator == 1:
+            return True
+        else:
+            return Sum.numerator
     else:
         return 'not in ZZ'
 
@@ -29,7 +31,10 @@ def test_L2(list1, list2):
     Sum = sum(Fraction(list1[k] + list2[k], list1[k] * list2[k])
               for k in range(7))
     if Sum.denominator == 1:
-        return Sum.numerator
+        if Sum.numerator == 4:
+            return True
+        else:
+            return Sum.numerator
     else:
         return 'not in ZZ'
 
@@ -41,7 +46,10 @@ def test_BB(list1, list2):
     Sum = sum(Fraction((list1[k] + list2[k])**2, list1[k] * list2[k])
               for k in range(7))
     if Sum.denominator == 1:
-        return Sum.numerator
+        if Sum.numerator == 16:
+            return True
+        else:
+            return Sum.numerator
     else:
         return 'not in ZZ'
 
@@ -50,9 +58,12 @@ def test_TL(list1, list2):
     """Test Lefschetz relation on invariant line: sum(1/lambda)
     The total sum should be -1
     """
-    Sum = sum(Fraction(1, list1[k]) for k in range(3))
+    Sum = sum(Fraction(1, list1[k]) for k in range(4, 7))
     if Sum.denominator == 1:
-        return Sum.numerator
+        if Sum.numerator == 1:
+            return True
+        else:
+            return Sum.numerator
     else:
         return 'not in ZZ'
 
@@ -61,9 +72,12 @@ def test_CS(list1, list2):
     """Test Camacho-Sad relation: sum(mu/lambda)
     The total sum should be 1
     """
-    Sum = sum(Fraction(list2[k], list1[k]) for k in range(3))
+    Sum = sum(Fraction(list2[k], list1[k]) for k in range(4, 7))
     if Sum.denominator == 1:
-        return Sum.numerator
+        if Sum.numerator == 1:
+            return True
+        else:
+            return Sum.numerator
     else:
         return 'not in ZZ'
 
@@ -82,12 +96,12 @@ def main():
     f.close()
 
     # Reset output file
-    output_file = open(r'./test-old-relations-output.txt', 'w')
-    output_file.write('Expected values: (1, -4, 16, -1, 1)\n')
-    output_file.write('Output:\n')
+    output_file = open(r'./test-old-relations-output.csv', 'w')
+    output_file.write(
+        'Lefschetz1, Lefschetz2, Baum-Bott, Tangential Lefschetz, Camacho-Sad\n')
     output_file.close()
 
-    output_file = open(r'./test-old-relations-output.txt', 'a')
+    output_file = open(r'./test-old-relations-output.csv', 'a')
 
     # Introduce a dictionary to avoid repeated lines
     dict = {}
@@ -105,14 +119,12 @@ def main():
             m = eval(line)[1]
 
             # Perform the test
-            result = (test_L1(l, m),
-                      test_L2(l, m),
-                      test_BB(l, m),
-                      test_TL(l, m),
-                      test_CS(l, m))
+            result = str(test_L1(l, m)) + ', ' + str(
+                test_L2(l, m)) + ', ' + str(test_BB(l, m)) + ', ' + str(
+                    test_TL(l, m)) + ', ' + str(test_CS(l, m)) + '\n'
 
             # Append to output_file
-            output_file.write(str(result) + '\n')
+            output_file.write(result)
 
     output_file.close()
 
