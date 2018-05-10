@@ -1,27 +1,26 @@
-""" This code generates the file 'data.txt'.
+"""This code generates the file 'data.txt'.
+Each line in 'raw-input-depurated.txt' contains two 7-element lists of eigenvalues l, m.
+This script scans through his file, and converts them into a list [t0, .. d3, Lambda].
+The output is appended to 'values.txt'
 
-    Adolfo's files has 'special lines' which contain two 7-element
-    lists of eigenvalues. This script scans through his file, extracts
-    those lines and converts them into a list [t0, .. d3, Lambda].
-    The output is appended to 'values.txt'
-"""
+Note: The fixed points are numbered p_0,...,p_6, where p_4, p_5, p_6 are on the invariant line.
+For these points, the first eigenvalue (ie l[k]) is the one tangent to the line."""
+
 
 import re
 
-# Save Adolfo's file as a single string
-filename = r'./raw-input.txt'
+output_file = open(r'./values.txt', 'a')
+
+# Save the input as single string
+filename = r'./raw-input.csv'
 f = open(filename, 'r')
 text = f.read()
 
-# Find the special lines
+# Save each as a list [l,m] packed into the list 'lines'
 lines = re.findall(r'\[.+\]', text)
 f.close()
 
-
-output_file = open(r'./values.txt', 'a')
-
-
-# Introduce a dictionary to avoid repeated lines
+# Introduce a dictionary to avoid repeated lines (if any)
 dict = {}
 
 for line in lines:
@@ -37,11 +36,11 @@ for line in lines:
         m = eval(line)[1]
 
         # t and d are saved in a list
-        t = list(l[k] + m[k] for k in range(3, 7))
-        d = list(l[k] * m[k] for k in range(3, 7))
+        t = list(l[k] + m[k] for k in range(4))
+        d = list(l[k] * m[k] for k in range(4))
 
         # L is saved as its numerator and denominator
-        L = [m[0] * m[1] * m[2], l[0] * l[1] * l[2]]
+        L = [m[4] * m[5] * m[6], l[4] * l[5] * l[6]]
 
         # Combine t, d and L to a string
         string = str(t + d + [L])
