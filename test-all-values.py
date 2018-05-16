@@ -131,7 +131,7 @@ def main():
     error_file = open(r'./data/error.txt', 'w')
 
     passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
-    failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I""\n')
+    failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
 
     passed_file.close()
     failed_file.close()
