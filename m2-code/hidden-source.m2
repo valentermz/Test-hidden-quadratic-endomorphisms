@@ -2,7 +2,7 @@ gbTrace = 2;
 printWidth = 0;
 
 kk = QQ;
-R = kk[c_0..c_5, x,y, w_0..w_2, a,b, L,U, MonomialOrder => Eliminate 13];
+R = kk[c_0..c_5, x,y, w_0..w_2, a,b, MonomialOrder => Eliminate 11];
 
 -- Define the values of the spectrum below:
 --START VALUES

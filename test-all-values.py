@@ -40,8 +40,10 @@ def update_script(value_list):
                       + 'd_1 = ' + str(ls[5]) + '\n'
                       + 'd_2 = ' + str(ls[6]) + '\n'
                       + 'd_3 = ' + str(ls[7]) + '\n'
-                      + 'L = ' + str(ls[8][0]) + '/' + str(ls[8][1])
-                      + '\n--END VALUES', text)
+                      + 'U = ' + str(ls[8]) + '\n'
+                      + 'V = ' + str(ls[9]) + '\n'
+                      + 'L = V/U' + '\n'
+                      + '--END VALUES', text)
 
     updated_script = open(r'./m2-code/hidden-run.m2', 'w')
     updated_script.write(new_text)
