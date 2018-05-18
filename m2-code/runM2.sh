@@ -7,4 +7,4 @@
 # Note that this file lives inside m2-code/ but it's called from it parent directory
 
 
-$(M2 < "./m2-code/hidden-run.m2" > "./m2-code/output.m2")
+$(M2 < "./m2-code/test-run.m2" > "./m2-code/output.m2")

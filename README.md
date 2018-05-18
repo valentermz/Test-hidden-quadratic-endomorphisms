@@ -6,18 +6,16 @@ This repository deals with quadratic endomorphisms having an invariant line. In 
 
 The object of this repository is to do the following:
 
-* Given a collection of numbers `[t_0, t_1, t_2, t_3, d_0, d_1, d_2, d_3, L]`, test if there is an obstruction for finding an endomorphism *F* that realizes that spectra.
+* Given a collection of numbers `[t_0, t_1, t_2, t_3, d_0, d_1, d_2, d_3, prodU, prodV sumU, sumV, xi]`, test if there is an obstruction for finding an endomorphism *F* that realizes that spectra.
 
 **Remarks:** 
 
 * It is not necessary to compute the *hidden relation* in order to perform the test.
 
-* To avoid working with rational numbers in python the value of `L` is stored as `[L.numerator, L.denominator]`.
-
 
 ## Main components:
 
-* The code to perform the analysis is contained in `m2-code/hidden-source.m2`.
+* The code to perform the analysis is contained in `m2-code/test-source.m2`.
 
 * A Jupyter notebook `compute-hidden-interactive.ipynb` that computes the *hidden relation* from given values for `[t_0,...,d_3]`.
 
@@ -28,11 +26,11 @@ The object of this repository is to do the following:
 
 ## Results:
 
-Depending whether or not a collection passes the test it is recorded in one of the following files in `data/`:
+Depending whether or not a collection passes the test it is recorded in one of the following files in `results/`:
 
-* `results-admissible.csv`
+* `admissible.csv`
 
-* `results-non-admissible.csv`
+* `non-admissible.csv`
 
 
 ### Output format:
@@ -43,11 +41,11 @@ The output is stored in the following format.
 
 where 
 
-* `J` is the ideal obtained from the 5 Jacobi relations after eliminating `x_3, y_3`. This ideal contains the information of whether the finite spectra `[t_0,...,d_3]` is admisible or not.
+* `J` is the ideal obtained from the 5 Jacobi relations after eliminating `x_3, y_3`. This ideal contains the information of whether the finite spectra `[t_0,...,d_3]` is admisible or not, and it determines how many (potential) endomorphisms share the same spectra *over the distinguished affine chart*.
 
-* `I` is the ideal of all relations, obtained by adding to `J` the formulas for `t_k, d_k, L` in terms of the coefficients `c_j` of the *associated vector field*, and then eliminating the variables `c_j`. This ideal contains the information of whether the whole spectra `[t_0,...,d_3, L]` is admisible or not.
+* `I` is the ideal of all relations, obtained by adding to `J` the formulas for `t_k, d_k` and several invariant functions in terms of the coefficients `a,b` and `c_j` of the *associated vector field*, and then eliminating the variables `c_j`. This ideal contains the information of whether the whole spectra is admisible or not.
 
-The codimensions of `J` and `I` are with respect to the ring `QQ[a,b]`. A generic admissible tuple should return `codim J = codim I = 2` (ie the solutions are finite) and `degree gens J = degree gens I = [1, 2]` (ie there are two solutions given by the intersection of a line and a conic).
+The codimensions of `J` is with respect to the ring `QQ[a,b]` and the codimension of `I` is with respect to `QQ[a,b,c_0..c_5]`. A generic admissible tuple should return `codim J = 2` and `codim I = 8`. If the codimensions are bigger it means that there's a positive-dimensional family of endomorphisms that realize the spectra.
 
 Note that the spectra is non-admissible if and only if the system of equations doesn't have a solution. This is equivalent to `I = (1)`. In this case we get `codim I = 'infinity'`, `degree gens I = [0]`. 
 

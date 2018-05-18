@@ -9,7 +9,7 @@ is not realizable as the spectra of an endomorphism.
 Write the result to 'data.txt'.
 
 The format is:
-'[t_0, ..., d_3, L, [cdoim J, degree gens J], [codim I, degree gens I]]'
+'[spectra, [cdoim J, degree gens J], [codim I, degree gens I]]'
 """
 
 import sys
@@ -28,7 +28,7 @@ def update_script(value_list):
     hidden-run.m2 with those numbers as the values of traces and determinants
     """
     ls = value_list
-    script = open(r'./m2-code/hidden-source.m2', 'r')
+    script = open(r'./m2-code/test-source.m2', 'r')
     text = script.read()
     new_text = re.sub('START VALUES\n--END VALUES',
                       'START VALUES\n'
@@ -40,20 +40,24 @@ def update_script(value_list):
                       + 'd_1 = ' + str(ls[5]) + '\n'
                       + 'd_2 = ' + str(ls[6]) + '\n'
                       + 'd_3 = ' + str(ls[7]) + '\n'
-                      + 'L = ' + str(ls[8][0]) + '/' + str(ls[8][1])
-                      + '\n--END VALUES', text)
+                      + 'prodU = ' + str(ls[8]) + '\n'
+                      + 'prodV = ' + str(ls[9]) + '\n'
+                      + 'sumU = ' + str(ls[10]) + '\n'
+                      + 'sumV = ' + str(ls[11]) + '\n'
+                      + 'xi = ' + str(ls[12]) + '\n'
+                      + '--END VALUES', text)
 
-    updated_script = open(r'./m2-code/hidden-run.m2', 'w')
+    updated_script = open(r'./m2-code/test-run.m2', 'w')
     updated_script.write(new_text)
 
     script.close()
     updated_script.close()
-    print('File "hidden-run.m2" updated')
+    print('File "test-run.m2" updated')
 
 
 def run_script():
-    """Excecute 'hidden-run.m2' and write the output to 'output.m2'"""
-    print('Running command: M2 < hidden-run.m2 > output.m2')
+    """Excecute 'test-run.m2' and write the output to 'output.m2'"""
+    print('Running command: M2 < test-run.m2 > output.m2')
 
     wd = os.path.abspath('./m2-code/')
     cmd = os.path.join(wd, 'runM2.sh')
@@ -82,7 +86,7 @@ def append_result(value_list):
     # lines[-12] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT', lines[-9]):
         print('Error line {}: output could not be found'.format(count))
-        error_file = open(r'./data/error.txt', 'a')
+        error_file = open(r'./results/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
         error_file.close()
@@ -95,8 +99,8 @@ def append_result(value_list):
         resultI = lines[-3].strip('\n')
 
         # Append the output to the respective file
-        passed_file = open(r'./data/results-admissible.csv', 'a')
-        failed_file = open(r'./data/results-non-admissible.csv', 'a')
+        passed_file = open(r'./results/results-admissible.csv', 'a')
+        failed_file = open(r'./results/results-non-admissible.csv', 'a')
         output = '\"' + str(value_list) + '\", ' \
             + '\"' + resultJ + '\", ' \
             + '\"' + resultI + '\"'
@@ -124,9 +128,9 @@ def main():
     """
 
     # Clear all files each time this script is run
-    passed_file = open(r'./data/results-admissible.csv', 'w')
-    failed_file = open(r'./data/results-non-admissible.csv', 'w')
-    error_file = open(r'./data/error.txt', 'w')
+    passed_file = open(r'./results/results-admissible.csv', 'w')
+    failed_file = open(r'./results/results-non-admissible.csv', 'w')
+    error_file = open(r'./results/error.txt', 'w')
 
     passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
     failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
@@ -136,8 +140,6 @@ def main():
     error_file.close()
 
     input_file = open(r'./data/values.txt', 'r')
-    # For testing purposes we use:
-    # input_file = open(r'./data/short-version-values.txt', 'r')
 
     for line in input_file:
 
