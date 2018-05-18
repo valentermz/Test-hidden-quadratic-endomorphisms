@@ -128,8 +128,8 @@ def main():
     """
 
     # Clear all files each time this script is run
-    passed_file = open(r'./results/results-admissible.csv', 'w')
-    failed_file = open(r'./results/results-non-admissible.csv', 'w')
+    passed_file = open(r'./results/admissible.csv', 'w')
+    failed_file = open(r'./results/non-admissible.csv', 'w')
     error_file = open(r'./results/error.txt', 'w')
 
     passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
