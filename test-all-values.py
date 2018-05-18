@@ -99,8 +99,8 @@ def append_result(value_list):
         resultI = lines[-3].strip('\n')
 
         # Append the output to the respective file
-        passed_file = open(r'./results/results-admissible.csv', 'a')
-        failed_file = open(r'./results/results-non-admissible.csv', 'a')
+        passed_file = open(r'./results/admissible.csv', 'a')
+        failed_file = open(r'./results/non-admissible.csv', 'a')
         output = '\"' + str(value_list) + '\", ' \
             + '\"' + resultJ + '\", ' \
             + '\"' + resultI + '\"'
@@ -111,7 +111,7 @@ def append_result(value_list):
                               + '\n')
             failed_file.close()
             print('Line {}: Test failed'.format(count))
-            print('Result appended to "results-non-admissible.csv"\n')
+            print('Result appended to "non-admissible.csv"\n')
 
         else:
             passed_file.write('\"line ' + str(count) + '\", '
@@ -119,7 +119,7 @@ def append_result(value_list):
                               + '\n')
             passed_file.close()
             print('Line {}: Test passed'.format(count))
-            print('Result appended to "results-admissible.csv"\n')
+            print('Result appended to "admissible.csv"\n')
 
 
 def main():
@@ -152,7 +152,7 @@ def main():
 
     input_file.close()
 
-    print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count))
+    print(sys.argv[0] + ': Process done. ' + 'Total loops: ' + str(count - 1))
 
 
 if __name__ == "__main__":
