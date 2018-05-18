@@ -46,20 +46,14 @@ for line in lines:
     sumV = v[4] + v[5] + v[6]
 
     # The invariant function '\xi_1'
-    xi1 = u[4]*v[5] + u[4]*v[6] + u[5]*v[6] + v[5]*u[6] + v[4]*u[5] + v[4]*u[6]
+    xi1 = u[4] * v[5] + u[4] * v[6] + u[5] * v[6] + \
+        v[5] * u[6] + v[4] * u[5] + v[4] * u[6]
 
     # Combine t, d and the invariant functions into a string
     string = str(t + d +
                  [prodU, prodV, sumU, sumV, xi1])
 
-    if string in dict:
-        dict[string] += 1
-    else:
-        dict[string] = 1
-
-
-# Append to output_file
-for string in dict:
+    # Append to output_file
     output_file.write(string + '\n')
 
 output_file.close()
