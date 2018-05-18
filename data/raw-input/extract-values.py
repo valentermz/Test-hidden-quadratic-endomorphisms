@@ -20,37 +20,38 @@ text = f.read()
 lines = re.findall(r'\[.+\]', text)
 f.close()
 
-# Introduce a dictionary to avoid repeated lines (if any)
+# Introduce a dictionary to avoid repeated output (if any)
 dict = {}
 
 for line in lines:
 
-    if line in dict:
-        dict[line] += 1
+    # For each special line we extract t, d, and invariant functions
+    u = eval(line)[0]
+    v = eval(line)[1]
 
+    # t and d are saved in a list
+    t = list(u[k] + v[k] for k in range(4))
+    d = list(u[k] * v[k] for k in range(4))
+
+    # Product of tangential eigenvalues
+    prodU = u[4] * u[5] * u[6]
+
+    # Product of normal eigenvalues
+    prodV = v[4] * v[5] * v[6]
+
+    # Combine t, d and L to a string
+    string = str(t + d +
+                 [prodU, prodV])
+
+    if string in dict:
+        dict[string] += 1
     else:
-        dict[line] = 1
+        dict[string] = 1
 
-        # For each special line we extract t, d, L
-        u = eval(line)[0]
-        v = eval(line)[1]
 
-        # t and d are saved in a list
-        t = list(u[k] + v[k] for k in range(4))
-        d = list(u[k] * v[k] for k in range(4))
-
-        # U is the product of tangential eigenvalues
-        U = u[4] * u[5] * u[6]
-
-        # V is the product of normal eigenvalues
-        V = v[4] * v[5] * v[6]
-
-        # Combine t, d and L to a string
-        string = str(t + d + [U] + [V])
-
-        # Append to output_file
-        output_file.write(string + '\n')
-
+# Append to output_file
+for string in dict:
+    output_file.write(string + '\n')
 
 output_file.close()
 
