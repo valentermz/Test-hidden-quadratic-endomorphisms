@@ -86,7 +86,7 @@ def append_result(value_list):
     # lines[-12] must start with the word OUTPUT, if not something went wrong
     if not re.search('OUTPUT', lines[-9]):
         print('Error line {}: output could not be found'.format(count))
-        error_file = open(r'./data/error.txt', 'a')
+        error_file = open(r'./results/error.txt', 'a')
         error_message = 'line : ' + str(count) + ' ' + str(value_list)
         error_file.write(error_message + '\n')
         error_file.close()
@@ -99,8 +99,8 @@ def append_result(value_list):
         resultI = lines[-3].strip('\n')
 
         # Append the output to the respective file
-        passed_file = open(r'./data/results-admissible.csv', 'a')
-        failed_file = open(r'./data/results-non-admissible.csv', 'a')
+        passed_file = open(r'./results/results-admissible.csv', 'a')
+        failed_file = open(r'./results/results-non-admissible.csv', 'a')
         output = '\"' + str(value_list) + '\", ' \
             + '\"' + resultJ + '\", ' \
             + '\"' + resultI + '\"'
@@ -128,9 +128,9 @@ def main():
     """
 
     # Clear all files each time this script is run
-    passed_file = open(r'./data/results-admissible.csv', 'w')
-    failed_file = open(r'./data/results-non-admissible.csv', 'w')
-    error_file = open(r'./data/error.txt', 'w')
+    passed_file = open(r'./results/results-admissible.csv', 'w')
+    failed_file = open(r'./results/results-non-admissible.csv', 'w')
+    error_file = open(r'./results/error.txt', 'w')
 
     passed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
     failed_file.write('"LINE", "SPECTRA", "IDEAL J", "IDEAL I"\n')
@@ -140,8 +140,6 @@ def main():
     error_file.close()
 
     input_file = open(r'./data/values.txt', 'r')
-    # For testing purposes we use:
-    # input_file = open(r'./data/short-version-values.txt', 'r')
 
     for line in input_file:
 
