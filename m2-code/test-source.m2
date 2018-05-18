@@ -1,24 +1,10 @@
-gbTrace = 3; 
-printWidth = 120;
+printWidth = 0;
 
 kk = QQ;
 R = kk[w_0..w_3,x,y, c_0..c_5, a,b, MonomialOrder => {6, 6, 2}];
 
 -- Define the values of the spectrum below:
 --START VALUES
-t_0=7
-t_1=7
-t_2=4
-t_3=4
-d_0=10
-d_1=-60
-d_2=3
-d_3=3
-prodU=-25
-prodV=-8
-sumU=1
-sumV=5
-xi=28
 --END VALUES
 
 -- Relations coming from Jacobi formula:

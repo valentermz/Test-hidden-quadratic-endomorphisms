@@ -9,7 +9,7 @@ is not realizable as the spectra of an endomorphism.
 Write the result to 'data.txt'.
 
 The format is:
-'[t_0, ..., d_3, L, [cdoim J, degree gens J], [codim I, degree gens I]]'
+'[spectra, [cdoim J, degree gens J], [codim I, degree gens I]]'
 """
 
 import sys
@@ -28,7 +28,7 @@ def update_script(value_list):
     hidden-run.m2 with those numbers as the values of traces and determinants
     """
     ls = value_list
-    script = open(r'./m2-code/hidden-source.m2', 'r')
+    script = open(r'./m2-code/test-source.m2', 'r')
     text = script.read()
     new_text = re.sub('START VALUES\n--END VALUES',
                       'START VALUES\n'
@@ -40,22 +40,24 @@ def update_script(value_list):
                       + 'd_1 = ' + str(ls[5]) + '\n'
                       + 'd_2 = ' + str(ls[6]) + '\n'
                       + 'd_3 = ' + str(ls[7]) + '\n'
-                      + 'U = ' + str(ls[8]) + '\n'
-                      + 'V = ' + str(ls[9]) + '\n'
-                      + 'L = V/U' + '\n'
+                      + 'prodU = ' + str(ls[8]) + '\n'
+                      + 'prodV = ' + str(ls[9]) + '\n'
+                      + 'sumU = ' + str(ls[10]) + '\n'
+                      + 'sumV = ' + str(ls[11]) + '\n'
+                      + 'xi = ' + str(ls[12]) + '\n'
                       + '--END VALUES', text)
 
-    updated_script = open(r'./m2-code/hidden-run.m2', 'w')
+    updated_script = open(r'./m2-code/test-run.m2', 'w')
     updated_script.write(new_text)
 
     script.close()
     updated_script.close()
-    print('File "hidden-run.m2" updated')
+    print('File "test-run.m2" updated')
 
 
 def run_script():
-    """Excecute 'hidden-run.m2' and write the output to 'output.m2'"""
-    print('Running command: M2 < hidden-run.m2 > output.m2')
+    """Excecute 'test-run.m2' and write the output to 'output.m2'"""
+    print('Running command: M2 < test-run.m2 > output.m2')
 
     wd = os.path.abspath('./m2-code/')
     cmd = os.path.join(wd, 'runM2.sh')
